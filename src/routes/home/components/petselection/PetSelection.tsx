@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
-import { clearSelection, downloadSelectedPets, selectAllPets, selectPetsSelected } from '../../homeSlice';
+import { clearSelection, downloadSelectedPets, selectAllPets, selectPS } from '../../homeSlice';
 
 const PetSelectionSection = styled.div`
     height: 100px;
@@ -50,7 +50,7 @@ const FAMargin = styled(FontAwesomeIcon)`
 `;
 
 export function PetSelection() {
-    const selectedPets = useAppSelector(selectPetsSelected);
+    const selectedPets = useAppSelector(selectPS);
     const dispatch = useAppDispatch();
 
     const download = () => {
@@ -73,9 +73,9 @@ export function PetSelection() {
             </Instructions>
             <DownloadDiv>
                 <SelectedP>
-                    {selectedPets.length} pet{selectedPets.length != 1 ? 's' : ''} currently selected
+                    {selectedPets.length} pet{selectedPets.length !== 1 ? 's' : ''} currently selected
                 </SelectedP>
-                <IconButton onClick={download} disabled={selectedPets.length == 0}>
+                <IconButton onClick={download} disabled={selectedPets.length === 0}>
                     Download
                     <FAMargin icon={faCat}></FAMargin>
                 </IconButton>

@@ -7,20 +7,22 @@ import { saveAs } from 'file-saver';
 export interface HomeState {
     pets: PetObj[];
     selectedPets: number[];
+    filter: string;
     status: 'idle' | 'loading' | 'failed';
 }
 
 const initialState: HomeState = {
     pets: [],
     selectedPets: [],
+    filter: '',
     status: 'idle',
 };
 
 export const fetchPets = createAsyncThunk('petsList.fetchPets', fetchPetsAPI);
 export const selectPets = (state: RootState) => state.home.pets;
 
-export const selectPetsSelected = (state: RootState) => state.home.selectedPets;
-export const isPetSelected = (state: RootState, id: number) => state.home.selectedPets.indexOf(id) > -1;
+export const selectPS = (state: RootState) => state.home.selectedPets;
+export const selectFilter = (state: RootState) => state.home.filter;
 
 export const homeSlice = createSlice({
     name: 'home',
@@ -42,6 +44,9 @@ export const homeSlice = createSlice({
                 saveAs(state.pets[pet].url, state.pets[pet].url.split('/').pop()?.replace(/\?.+/, ''))
             );
         },
+        updateFilter: (state, action: PayloadAction<string>) => {
+            state.filter = action.payload;
+        },
     },
     extraReducers: builder => {
         builder
@@ -58,5 +63,6 @@ export const homeSlice = createSlice({
     },
 });
 
-export const { updateSelectedPets, selectAllPets, clearSelection, downloadSelectedPets } = homeSlice.actions;
+export const { updateSelectedPets, selectAllPets, clearSelection, downloadSelectedPets, updateFilter } =
+    homeSlice.actions;
 export default homeSlice.reducer;

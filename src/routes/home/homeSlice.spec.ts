@@ -1,9 +1,10 @@
-import homeReducer, { HomeState, updateSelectedPets, selectAllPets, clearSelection } from './homeSlice';
+import homeReducer, { HomeState, updateSelectedPets, selectAllPets, clearSelection, updateFilter } from './homeSlice';
 
 describe('home reducer', () => {
     const initialState: HomeState = {
         pets: [],
         selectedPets: [],
+        filter: '',
         status: 'idle',
     };
 
@@ -23,6 +24,7 @@ describe('home reducer', () => {
             },
         ],
         selectedPets: [0],
+        filter: '',
         status: 'idle',
     };
 
@@ -30,6 +32,7 @@ describe('home reducer', () => {
         expect(homeReducer(undefined, { type: 'unknown' })).toEqual({
             pets: [],
             selectedPets: [],
+            filter: '',
             status: 'idle',
         });
     });
@@ -52,5 +55,10 @@ describe('home reducer', () => {
     it('should handle clearing the selection', () => {
         const actual = homeReducer(initialState, clearSelection());
         expect(actual.selectedPets).toHaveLength(0);
+    });
+
+    it('should handle updating the filter', () => {
+        const actual = homeReducer(initialState, updateFilter('tim'));
+        expect(actual.filter).toEqual('tim');
     });
 });

@@ -9,7 +9,7 @@ import {
     PetTextContainer,
     PetTitle,
 } from '../../../../components/common-styles';
-import { isPetSelected, updateSelectedPets } from '../../homeSlice';
+import { selectPS, updateSelectedPets } from '../../homeSlice';
 
 const PetListItem = styled.li<{ isSelected: boolean }>`
     margin-bottom: 20px;
@@ -36,7 +36,7 @@ const PetTimeStamp = styled.p`
 
 export function Pet(props: { pet: PetObj; id: number }) {
     const dispatch = useAppDispatch();
-    const isSelected = useAppSelector(state => isPetSelected(state, props.id));
+    const petsSelected = useAppSelector(selectPS);
 
     const selected = (event: any, id: number) => {
         event.preventDefault();
@@ -44,8 +44,8 @@ export function Pet(props: { pet: PetObj; id: number }) {
     };
 
     return (
-        <PetListItem isSelected={isSelected} onClick={(e: any) => selected(e, props.id)}>
-            <PetBackgroundSel isSelected={isSelected}></PetBackgroundSel>
+        <PetListItem isSelected={petsSelected.indexOf(props.id) > -1} onClick={(e: any) => selected(e, props.id)}>
+            <PetBackgroundSel isSelected={petsSelected.indexOf(props.id) > -1}></PetBackgroundSel>
             <PetImage src={props.pet.url}></PetImage>
             <PetTextContainer>
                 <PetTimeStamp>
