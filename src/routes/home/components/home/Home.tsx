@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import { MarginDiv } from '../../../../components/common-styles';
 import { Navbar } from '../../../../components/navbar/Navbar';
 import { PetList } from '../petlist/PetList';

@@ -1,7 +1,14 @@
 import moment from 'moment';
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
+import {
+    PetBackground,
+    PetDescription,
+    PetImage,
+    PetTextContainer,
+    PetTitle,
+} from '../../../../components/common-styles';
 import { isPetSelected, updateSelectedPets } from '../../homeSlice';
 
 const PetListItem = styled.li<{ isSelected: boolean }>`
@@ -15,44 +22,9 @@ const PetListItem = styled.li<{ isSelected: boolean }>`
     cursor: pointer;
 `;
 
-const PetBackground = styled.div<{ isSelected: boolean }>`
+const PetBackgroundSel = styled(PetBackground)<{ isSelected: boolean }>`
     background-color: ${props => (props.isSelected ? '#BBDEFB' : '#f8bbd0')};
-    border-radius: 10px;
-    position: absolute;
-    z-index: 1;
-    left: 10px;
-    top: 10px;
-    height: calc(100% - 20px);
-    width: calc(100% - 20px);
     transition: background-color 0.4s ease;
-`;
-
-const PetTextContainer = styled.div`
-    padding: 0 25px 25px 25px;
-    z-index: 2;
-    position: relative;
-`;
-
-const PetImage = styled.img`
-    width: 100%;
-    border-radius: 10px;
-    display: inline;
-    z-index: 2;
-    position: relative;
-`;
-
-const PetTitle = styled.p`
-    margin-top: 20px;
-    margin-bottom: 0;
-    font-family: 'Josefin Sans';
-    font-weight: 300;
-    font-size: 40px;
-`;
-
-const PetDescription = styled.p`
-    font-family: 'Signika Negative';
-    margin-top: 10px;
-    margin-bottom: 0;
 `;
 
 const PetTimeStamp = styled.p`
@@ -73,7 +45,7 @@ export function Pet(props: { pet: PetObj; id: number }) {
 
     return (
         <PetListItem isSelected={isSelected} onClick={(e: any) => selected(e, props.id)}>
-            <PetBackground isSelected={isSelected}></PetBackground>
+            <PetBackgroundSel isSelected={isSelected}></PetBackgroundSel>
             <PetImage src={props.pet.url}></PetImage>
             <PetTextContainer>
                 <PetTimeStamp>
